@@ -1,15 +1,15 @@
 import * as THREE from 'three';
 import { CommonThree } from './CommonThree';
-const vertexShader = require('../Shaders/basicShader.vert');
-const fragmentShader = require('../Shaders/basicShader.frag');
+const vertexShader = require('../Shaders/customizingVertexShader.vert');
+const fragmentShader = require('../Shaders/customizingVertexShader.frag');
 
-export class BasicShader extends CommonThree {
+export class CustomizingVertexShader extends CommonThree {
   constructor() {
     super();
   }
 
   addObjects() {
-    const geometry = new THREE.PlaneGeometry(2, 2, 1, 1);
+    const geometry = new THREE.SphereGeometry(0.8, 32, 32);
     const material = new THREE.ShaderMaterial({
       vertexShader: vertexShader,
       fragmentShader: fragmentShader,
