@@ -17,6 +17,5 @@ export class CustomizingVertexShader extends CommonThree {
     });
     const mesh = new THREE.Mesh(geometry, material);
     this.scene.add(mesh);
-    super.render();
   }
 }

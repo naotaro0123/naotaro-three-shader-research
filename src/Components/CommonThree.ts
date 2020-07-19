@@ -17,6 +17,7 @@ export class CommonThree {
     this.scene = new THREE.Scene();
 
     this.addObjects();
+    this.render();
   }
 
   addObjects() {}
