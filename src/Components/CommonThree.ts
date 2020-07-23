@@ -24,7 +24,7 @@ export class CommonThree {
     if (isPerspective) {
       this.camera = new THREE.PerspectiveCamera(45, width / height, 1, 2000);
       this.camera.position.set(0, 4, 10);
-      this.camera.rotation.set(-0.3, 0, 0);
+      this.camera.rotation.set(-0.35, 0, 0);
     } else {
       this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, -1);
     }
