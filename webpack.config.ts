@@ -18,7 +18,7 @@ const rules: Rule[] = [
   },
 ];
 
-const module: Module = {
+const webPackModule: Module = {
   rules,
 };
 
@@ -33,7 +33,7 @@ const config: Configuration = {
   resolve: {
     extensions: ['.ts', '.js'],
   },
-  module,
+  module: webPackModule,
   devServer: {
     contentBase: path.resolve(__dirname, './src'),
     watchContentBase: true,
