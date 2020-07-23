@@ -5,7 +5,7 @@ const fragmentShader = require('../Shaders/basicShader.frag');
 
 export class BasicShader extends CommonThree {
   constructor() {
-    super();
+    super({ isPerspective: false });
   }
 
   addObjects() {

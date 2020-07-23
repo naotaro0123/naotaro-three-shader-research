@@ -2,10 +2,10 @@ import * as THREE from 'three';
 
 export class CommonThree {
   protected renderer: THREE.WebGLRenderer;
-  protected camera: THREE.OrthographicCamera;
+  protected camera: THREE.OrthographicCamera | THREE.PerspectiveCamera;
   protected scene: THREE.Scene;
 
-  constructor() {
+  constructor({ isPerspective = false }) {
     const width = window.innerWidth * (window.innerHeight / window.innerWidth);
     const height = window.innerHeight;
     this.renderer = new THREE.WebGLRenderer();
@@ -13,11 +13,21 @@ export class CommonThree {
     this.renderer.setPixelRatio(window.devicePixelRatio);
     document.body.appendChild(this.renderer.domElement);
 
-    this.camera = new THREE.OrthographicCamera(-1, 1, 1, 0, -1);
+    this.setCamera(isPerspective, width, height);
     this.scene = new THREE.Scene();
 
     this.addObjects();
     this.render();
+  }
+
+  private setCamera(isPerspective: boolean, width: number, height: number) {
+    if (isPerspective) {
+      this.camera = new THREE.PerspectiveCamera(45, width / height, 1, 2000);
+      this.camera.position.set(0, 4, 10);
+      this.camera.rotation.set(-0.3, 0, 0);
+    } else {
+      this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, -1);
+    }
   }
 
   addObjects() {}

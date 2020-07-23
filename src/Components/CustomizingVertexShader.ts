@@ -5,7 +5,7 @@ const fragmentShader = require('../Shaders/customizingVertexShader.frag');
 
 export class CustomizingVertexShader extends CommonThree {
   constructor() {
-    super();
+    super({ isPerspective: false });
   }
 
   addObjects() {
