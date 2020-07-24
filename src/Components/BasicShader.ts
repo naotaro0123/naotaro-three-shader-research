@@ -11,11 +11,15 @@ export class BasicShader extends CommonThree {
   addObjects() {
     const geometry = new THREE.PlaneGeometry(2, 2, 1, 1);
     const material = new THREE.ShaderMaterial({
-      vertexShader: vertexShader,
-      fragmentShader: fragmentShader,
+      vertexShader,
+      fragmentShader,
       wireframe: false
     });
     const mesh = new THREE.Mesh(geometry, material);
     this.scene.add(mesh);
+  }
+
+  render() {
+    super.render();
   }
 }
