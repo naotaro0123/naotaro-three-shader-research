@@ -1,28 +1,40 @@
 import * as THREE from 'three';
 
 export class CommonThree {
+  private width: number;
+  private height: number;
   protected renderer: THREE.WebGLRenderer;
   protected camera: THREE.OrthographicCamera | THREE.PerspectiveCamera;
   protected scene: THREE.Scene;
 
   constructor({ isPerspective = false }) {
-    const width = window.innerWidth * (window.innerHeight / window.innerWidth);
-    const height = window.innerHeight;
     this.renderer = new THREE.WebGLRenderer();
-    this.renderer.setSize(width, height);
-    this.renderer.setPixelRatio(window.devicePixelRatio);
     document.body.appendChild(this.renderer.domElement);
 
-    this.setCamera(isPerspective, width, height);
     this.scene = new THREE.Scene();
+
+    this.resize();
+    window.addEventListener('resize', () => this.resize());
+
+    this.setCamera(isPerspective);
 
     this.addObjects();
     this.render();
   }
 
-  private setCamera(isPerspective: boolean, width: number, height: number) {
+  private resize() {
+    this.width = window.innerWidth * (window.innerHeight / window.innerWidth);
+    this.height = window.innerHeight;
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setSize(this.width, this.height);
+    if (this.camera) {
+      this.camera.updateProjectionMatrix();
+    }
+  }
+
+  private setCamera(isPerspective: boolean) {
     if (isPerspective) {
-      this.camera = new THREE.PerspectiveCamera(45, width / height, 1, 2000);
+      this.camera = new THREE.PerspectiveCamera(45, this.width / this.height, 1, 2000);
       this.camera.position.set(0, 4, 10);
       this.camera.rotation.set(-0.35, 0, 0);
     } else {
