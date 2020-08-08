@@ -99,11 +99,61 @@ void main() {
   // ----------------------------------------------------
   // glsl_sample - sample_16.frag
   // ----------------------------------------------------
+  // vec2 p = vec2(vUv.x - 0.5, vUv.y - 0.5) * 2.0;
+  // vec3 light = vec3(0.0);
+  // for (int i = 0; i < 16; i++) {
+  //   vec3 color = hsv(float(i) / 16.0, 1.0, 1.0);
+  //   light += color * sineLine(p, 0.5, 6.28 / 16.0 * float(i));
+  // }
+  // gl_FragColor = vec4(vec3(light), 1.0);
+
+  // // ----------------------------------------------------
+  // // glsl_sample - sample_17.frag
+  // // ----------------------------------------------------
+  // vec2 p = vec2(vUv.x - 0.5, vUv.y - 0.5) * 2.0;
+  // float tile = 1.0;
+  // if (
+  //   (mod(p.x, 1.0) > 0.5 && mod(p.y, 1.0) < 0.5) ||
+  //   (mod(p.x, 1.0) < 0.5 && mod(p.y, 1.0) > 0.5)
+  // ) {
+  //   tile = 0.25;
+  // }
+  // gl_FragColor = vec4(vec3(tile), 1.0);
+
+  // // ----------------------------------------------------
+  // // glsl_sample - sample_18.frag
+  // // ----------------------------------------------------
+  // vec2 p = vec2(vUv.x - 0.5, vUv.y - 0.5) * 2.0;
+  // float y = sin(time);
+  // float x = cos(time);
+  // mat2 m = mat2(x, y, -y, x);
+  // vec2 q = m * p;
+
+  // float tile = 1.0;
+  // if (
+  //   (mod(q.x, 1.0) > 0.5 && mod(q.y, 1.0) < 0.5) ||
+  //   (mod(q.x, 1.0) < 0.5 && mod(q.y, 1.0) > 0.5)
+  // ) {
+  //   tile = 0.25;
+  // }
+  // gl_FragColor = vec4(vec3(tile), 1.0);
+
+  // ----------------------------------------------------
+  // glsl_sample - sample_19.frag
+  // ----------------------------------------------------
   vec2 p = vec2(vUv.x - 0.5, vUv.y - 0.5) * 2.0;
-  vec3 light = vec3(0.0);
-  for (int i = 0; i < 16; i++) {
-    vec3 color = hsv(float(i) / 16.0, 1.0, 1.0);
-    light += color * sineLine(p, 0.5, 6.28 / 16.0 * float(i));
+  float y = sin(time);
+  float x = cos(time);
+  mat2 m = mat2(x, y, -y, x);
+  vec2 q = m * (p + sin(time)) * 5.0;
+
+  float tile = 1.0;
+  if (
+    (mod(q.x, 1.0) > 0.5 && mod(q.y, 1.0) < 0.5) ||
+    (mod(q.x, 1.0) < 0.5 && mod(q.y, 1.0) > 0.5)
+  ) {
+    tile = 0.25;
   }
-  gl_FragColor = vec4(vec3(light), 1.0);
+  gl_FragColor = vec4(vec3(tile), 1.0);
+
 }
