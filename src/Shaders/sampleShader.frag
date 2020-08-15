@@ -17,6 +17,34 @@ float sineLine(vec2 position, float speed, float offset) {
   return 0.005 / abs(position.y + sin(((position.x - offset * time * 0.2) - time * speed) * 5.0) * 0.75);
 }
 
+float rnd(vec2 n) {
+  return fract(sin(dot(n, vec2(12.9898, 4.1414))) * 43758.5453);
+}
+
+float noise(vec2 p) {
+  vec2 v = floor(p);
+  vec2 u = fract(p);
+  u = u * u * (3.0 - 2.0 * u);
+  float r = mix(
+    mix(rnd(v), rnd(v + vec2(1.0, 0.0)), u.x),
+    mix(rnd(v + vec2(0.0, 1.0)), rnd(v + vec2(1.0, 1.0)), u.x),
+    u.y
+  );
+  return r * r;
+}
+
+float snoise(vec2 p) {
+  float n = 0.0;
+  for(float i = 0.0; i < 6.0; ++i) {
+    float v = pow(2.0, 2.0 + i);
+    float w = pow(2.0, -1.0 - i);
+    n += noise(p * v) * w;
+  }
+  return n;
+}
+
+const vec3 fireColor = vec3(0.9, 0.3, 0.1);
+
 void main() {
   // ----------------------------------------------------
   // glsl_sample - sample_07.frag
@@ -138,22 +166,36 @@ void main() {
   // }
   // gl_FragColor = vec4(vec3(tile), 1.0);
 
+  // // ----------------------------------------------------
+  // // glsl_sample - sample_19.frag
+  // // ----------------------------------------------------
+  // vec2 p = vec2(vUv.x - 0.5, vUv.y - 0.5) * 2.0;
+  // float y = sin(time);
+  // float x = cos(time);
+  // mat2 m = mat2(x, y, -y, x);
+  // vec2 q = m * (p + sin(time)) * 5.0;
+
+  // float tile = 1.0;
+  // if (
+  //   (mod(q.x, 1.0) > 0.5 && mod(q.y, 1.0) < 0.5) ||
+  //   (mod(q.x, 1.0) < 0.5 && mod(q.y, 1.0) > 0.5)
+  // ) {
+  //   tile = 0.25;
+  // }
+  // gl_FragColor = vec4(vec3(tile), 1.0);
+
+  // // ----------------------------------------------------
+  // // glsl_sample - sample_20.frag
+  // // ----------------------------------------------------
+  // vec2 p = vec2(vUv.x - 0.5, vUv.y - 0.5) * 2.0;
+  // float n = snoise(p + time * 0.1);
+  // gl_FragColor = vec4(vec3(n), 1.0);
+
   // ----------------------------------------------------
-  // glsl_sample - sample_19.frag
+  // glsl_sample - sample_21.frag
   // ----------------------------------------------------
   vec2 p = vec2(vUv.x - 0.5, vUv.y - 0.5) * 2.0;
-  float y = sin(time);
-  float x = cos(time);
-  mat2 m = mat2(x, y, -y, x);
-  vec2 q = m * (p + sin(time)) * 5.0;
-
-  float tile = 1.0;
-  if (
-    (mod(q.x, 1.0) > 0.5 && mod(q.y, 1.0) < 0.5) ||
-    (mod(q.x, 1.0) < 0.5 && mod(q.y, 1.0) > 0.5)
-  ) {
-    tile = 0.25;
-  }
-  gl_FragColor = vec4(vec3(tile), 1.0);
-
+  vec2 q = atan(p);
+  float n = snoise(p + time * 2.0) * 5.0;
+  gl_FragColor = vec4(fireColor * n, 1.0);
 }
