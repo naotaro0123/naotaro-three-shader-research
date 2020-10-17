@@ -1,7 +1,14 @@
-import { Rule, Module, Configuration } from 'webpack';
+import { RuleSetRule, Module, Configuration as WebpackConfiguration } from 'webpack';
+import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
 import * as path from 'path';
 
-const rules: Rule[] = [
+// Reference Issue: 'devServer' does not exist in type 'Configuration'
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/27570
+interface Configuration extends WebpackConfiguration {
+  devServer?: WebpackDevServerConfiguration;
+}
+
+const rules: RuleSetRule[] = [
   {
     exclude: /node_modules/,
     test: /\.ts$/,
@@ -18,7 +25,7 @@ const rules: Rule[] = [
   },
 ];
 
-const webPackModule: Module = {
+const ruluesModule: Module = {
   rules,
 };
 
@@ -33,7 +40,7 @@ const config: Configuration = {
   resolve: {
     extensions: ['.ts', '.js'],
   },
-  module: webPackModule,
+  module: ruluesModule,
   devServer: {
     contentBase: path.resolve(__dirname, './src'),
     watchContentBase: true,
