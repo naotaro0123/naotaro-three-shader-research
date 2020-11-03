@@ -4,7 +4,7 @@ import { GUI } from 'dat.gui';
 export type TransControlMode = 'translate' | 'rotate' | 'scale';
 
 export class DatGUI {
-  public rgbColor: number[];
+  public rgbColors: number[];
   private gui: GUI;
 
   constructor(private object: THREE.Object3D | number[], private mode?: TransControlMode) {
@@ -43,17 +43,17 @@ export class DatGUI {
     guiFolder.open();
   }
 
-  private addRGBFolder(array: number[]) {
+  private addRGBFolder(rgbArray: number[]) {
     const guiFolder = this.gui.addFolder('RGB');
-    this.rgbColor = array;
+    this.rgbColors = rgbArray;
     const rgb = {
-      value: this.rgbColor.map((color) => color * 255),
+      values: this.rgbColors.map((color) => color * 255),
     };
-    guiFolder.addColor(rgb, 'value').onChange((values: number[]) => {
-      values.forEach((value: number, index: number) => {
-        this.rgbColor[index] = value / 255;
-      });
-    });
+    guiFolder
+      .addColor(rgb, 'values')
+      .onChange((values: number[]) =>
+        values.forEach((value: number, index: number) => (this.rgbColors[index] = value / 255))
+      );
     guiFolder.open();
   }
 
