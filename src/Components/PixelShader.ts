@@ -11,7 +11,7 @@ const uniforms = {
 
 export class PixelShader extends CommonThree {
   private mesh: THREE.Mesh;
-  private step = 0;
+  // private step = 0;
 
   constructor() {
     super({ isPerspective: false });
@@ -30,8 +30,8 @@ export class PixelShader extends CommonThree {
   }
 
   render() {
-    this.step++;
-    (this.mesh.material as THREE.RawShaderMaterial).uniforms['time'].value = this.step / 60.0;
+    // this.step++;
+    // (this.mesh.material as THREE.RawShaderMaterial).uniforms['time'].value = this.step / 60.0;
     super.render();
   }
 }
