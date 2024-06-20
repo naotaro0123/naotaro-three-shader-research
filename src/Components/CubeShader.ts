@@ -20,7 +20,7 @@ export class CubeShader extends CommonThree {
   }
 
   addObjects() {
-    const geometry = new THREE.BoxBufferGeometry(4, 4, 4);
+    const geometry = new THREE.BoxGeometry(4, 4, 4);
     const material = new THREE.RawShaderMaterial({
       uniforms,
       vertexShader,

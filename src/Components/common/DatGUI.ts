@@ -37,7 +37,7 @@ export class DatGUI {
     const guiFolder = this.gui.addFolder(folderName);
     const max = 10;
     const min = -max;
-    ['x', 'y', 'z'].forEach((pos) => {
+    (['x', 'y', 'z'] as const).forEach((pos) => {
       guiFolder.add(this.target(object), pos, min, max, 0.01);
     });
     guiFolder.open();

@@ -2,7 +2,7 @@
 three.js shader research
 
 ## Build setup
-Use node v13.2.0
+Use node v18.18.0
 
 ``` bash
 # install dependencies

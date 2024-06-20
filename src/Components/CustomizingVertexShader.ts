@@ -4,7 +4,7 @@ import { CommonThree } from './CommonThree';
 
 export class CustomizingVertexShader extends CommonThree {
   private mesh: THREE.Mesh;
-  private materialShader: THREE.Shader;
+  private materialShader: THREE.WebGLProgramParametersWithUniforms;
   private time = 0;
 
   constructor() {
