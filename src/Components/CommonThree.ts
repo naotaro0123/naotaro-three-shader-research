@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 export class CommonThree {
   private width: number;
@@ -6,6 +7,7 @@ export class CommonThree {
   protected renderer: THREE.WebGLRenderer;
   protected camera: THREE.OrthographicCamera | THREE.PerspectiveCamera;
   protected scene: THREE.Scene;
+  private controls: OrbitControls;
 
   constructor({ isPerspective = false }) {
     this.renderer = new THREE.WebGLRenderer();
@@ -17,6 +19,7 @@ export class CommonThree {
     window.addEventListener('resize', () => this.resize());
 
     this.setCamera(isPerspective);
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
     this.addObjects();
     this.render();
@@ -46,6 +49,7 @@ export class CommonThree {
 
   render() {
     requestAnimationFrame(() => this.render());
+    this.controls?.update();
     this.renderer.render(this.scene, this.camera);
   }
 }

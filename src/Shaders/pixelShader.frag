@@ -116,5 +116,5 @@ void main() {
 	// c += smoothstep(.2,.22, abs(fract(p.x + dir * p.y) - .5));
   // dirを掛けることで、線が反対の斜めになる
 	c += smoothstep(.2,.22, abs(fract(p.x + p.y) - .5));
-	gl_FragColor = vec4(1.0, c.y, c.z, 1.0);
+	gl_FragColor = vec4(0.3, c.y, c.z, 1.0);
 }

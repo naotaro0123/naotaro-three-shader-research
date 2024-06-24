@@ -11,7 +11,7 @@ export class PixelShader extends CommonThree {
   private mesh: THREE.Mesh;
 
   constructor() {
-    super({ isPerspective: false });
+    super({ isPerspective: true });
   }
 
   addObjects() {
@@ -20,7 +20,8 @@ export class PixelShader extends CommonThree {
     const uniforms: Uniforms = {
       resolution: { value: new THREE.Vector2(clientWidth, clientHeight) },
     };
-    const geometry = new THREE.PlaneGeometry(2, 2, 1, 1);
+    // const geometry = new THREE.PlaneGeometry(2, 2, 1, 1);
+    const geometry = new THREE.BoxGeometry(2, 2, 2);
     const material = new THREE.ShaderMaterial({
       uniforms,
       vertexShader,
