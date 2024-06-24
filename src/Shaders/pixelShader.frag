@@ -1,7 +1,7 @@
 precision mediump float;
 
-varying vec2 vUv;
-uniform float time;
+// varying vec2 vUv;
+// uniform float time;
 
 // # 01
 // void main() {
@@ -60,26 +60,44 @@ uniform float time;
 //   gl_FragColor.a = 1.;
 // }
 
-// # 06 lines
-// float lines(vec2 p, float steps) {
-//   // xとyの整数を求める
-//   float x = floor(p.x * steps);
-//   float y = floor(p.y * steps);
-//   return mod(x, 2.0);
-// }
+// # 06 point test
+// uniform vec2 resolution;
 
 // void main() {
-//   vec2 p = vUv;
-//   float brightness = lines(p, 100.);
-//   gl_FragColor.rgb = vec3(brightness);
-//   gl_FragColor.a = 1.;
+//   vec2 position = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
+//   float color = floor(0.1 / length(position));
+//   gl_FragColor = vec4(color, 0.0, 0.0, 1.0);
 // }
 
-// # 07 test
-uniform vec2 resolution;
+// # 07 lines1
+varying vec2 vUv;
+
+float lines(vec2 p, float steps) {
+  // xとyの整数を求める
+  float x = floor(p.x * steps);
+  float y = floor(p.y * steps);
+  return mod(x, 2.0);
+}
 
 void main() {
-  vec2 position = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
-  float color = floor(0.1 / length(position));
-  gl_FragColor = vec4(color, 0.0, 0.0, 1.0);
+  vec2 p = vUv;
+  float brightness = lines(p, 100.);
+  gl_FragColor.rgb = vec3(brightness);
+  gl_FragColor.a = 1.;
 }
+
+// # 08 lines2
+// varying mat3 vNormalMatrix;
+// varying vec3 vNormal;
+// varying vec2 vUv;
+// varying vec3 vPosition;
+
+// uniform vec2 resolution;
+
+// void main() {
+//   vec2 position = -1.0 + 2.0 * vUv;
+//   vec4 distColor = vec4(0.0, 0.0, 0.0, 1.0);
+//   float color = floor(sin(length(position.y * 40.0)) * 1.5);
+//   distColor = vec4(color, 0.0, color / 1.5, 1.0);
+//   gl_FragColor = distColor;
+// }
