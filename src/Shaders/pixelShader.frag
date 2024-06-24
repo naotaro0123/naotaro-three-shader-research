@@ -1,8 +1,5 @@
 precision mediump float;
 
-// varying vec2 vUv;
-// uniform float time;
-
 // # 01
 // void main() {
 //   gl_FragColor.r = vUv.x;
@@ -70,21 +67,21 @@ precision mediump float;
 // }
 
 // # 07 lines1
-varying vec2 vUv;
+// varying vec2 vUv;
 
-float lines(vec2 p, float steps) {
-  // xとyの整数を求める
-  float x = floor(p.x * steps);
-  float y = floor(p.y * steps);
-  return mod(x, 2.0);
-}
+// float lines(vec2 p, float steps) {
+//   // xとyの整数を求める
+//   float x = floor(p.x * steps);
+//   float y = floor(p.y * steps);
+//   return mod(x, 2.0);
+// }
 
-void main() {
-  vec2 p = vUv;
-  float brightness = lines(p, 100.);
-  gl_FragColor.rgb = vec3(brightness);
-  gl_FragColor.a = 1.;
-}
+// void main() {
+//   vec2 p = vUv;
+//   float brightness = lines(p, 80.);
+//   gl_FragColor.rgb = vec3(brightness);
+//   gl_FragColor.a = 1.;
+// }
 
 // # 08 lines2
 // varying mat3 vNormalMatrix;
@@ -101,3 +98,23 @@ void main() {
 //   distColor = vec4(color, 0.0, color / 1.5, 1.0);
 //   gl_FragColor = distColor;
 // }
+
+// # 09 lines3
+// uniform vec2 resolution;
+varying vec2 vUv;
+
+void main() {
+  vec2 p = -1.0 + 2.0 * vUv;
+
+  // vec2 p2 = floor(p * 0.);
+	p = fract(p * 18.);
+
+	// #define N(x) (fract(sin(dot(x, vec2(375.,479.)) * 292.))
+	// float dir = sign(N(p2)) - .99);
+
+	vec4 c;
+	// c += smoothstep(.2,.22, abs(fract(p.x + dir * p.y) - .5));
+  // dirを掛けることで、線が反対の斜めになる
+	c += smoothstep(.2,.22, abs(fract(p.x + p.y) - .5));
+	gl_FragColor = vec4(1.0, c.y, c.z, 1.0);
+}
