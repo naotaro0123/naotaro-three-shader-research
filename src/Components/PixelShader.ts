@@ -3,10 +3,11 @@ import { CommonThree } from './CommonThree';
 const vertexShader = require('../Shaders/pixelShader.vert');
 const fragmentShader = require('../Shaders/pixelShader.frag');
 
-const uniforms = {
+type Uniforms = {
   time: {
-    value: 1.0,
-  } as THREE.IUniform,
+    value: number;
+  };
+  resolution: { value: THREE.Vector2 };
 };
 
 export class PixelShader extends CommonThree {
@@ -18,6 +19,11 @@ export class PixelShader extends CommonThree {
   }
 
   addObjects() {
+    const { clientWidth, clientHeight } = this.renderer.domElement;
+    const uniforms: Uniforms = {
+      time: { value: 0.0 },
+      resolution: { value: new THREE.Vector2(clientWidth, clientHeight) },
+    };
     const geometry = new THREE.PlaneGeometry(2, 2, 1, 1);
     const material = new THREE.ShaderMaterial({
       uniforms,

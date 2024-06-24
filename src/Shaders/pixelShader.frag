@@ -61,24 +61,25 @@ uniform float time;
 // }
 
 // # 06 lines
-float lines(vec2 p, float steps) {
-  // xとyの整数を求める
-  float x = floor(p.x * steps);
-  float y = floor(p.y * steps);
-  return mod(x, 2.0);
-}
+// float lines(vec2 p, float steps) {
+//   // xとyの整数を求める
+//   float x = floor(p.x * steps);
+//   float y = floor(p.y * steps);
+//   return mod(x, 2.0);
+// }
 
-vec2 rotateVector(vec2 p, float theta) {
-  return p * cos(theta) + vec2(-p.y, p.x) * sin(theta);
-}
+// void main() {
+//   vec2 p = vUv;
+//   float brightness = lines(p, 100.);
+//   gl_FragColor.rgb = vec3(brightness);
+//   gl_FragColor.a = 1.;
+// }
+
+// # 07 test
+uniform vec2 resolution;
 
 void main() {
-  vec2 p = vUv;
-  float brightness = lines(p, 100.);
-  gl_FragColor.rgb = vec3(brightness);
-  // vec2 base = vec2(brightness, brightness);
-  // vec2 rotated = rotateVector(base, 1);
-  // gl_FragColor.rgb = vec3(rotated, brightness);
-  gl_FragColor.a = 1.;
+  vec2 position = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
+  float color = floor(0.1 / length(position));
+  gl_FragColor = vec4(color, 0.0, 0.0, 1.0);
 }
-
