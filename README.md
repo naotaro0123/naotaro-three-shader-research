@@ -1,10 +1,12 @@
-# three-shader-research
+# naotar-three-shader-research
+
 three.js shader research
 
 ## Build setup
+
 Use node v18.18.0
 
-``` bash
+```bash
 # install dependencies
 $ yarn
 
@@ -20,7 +22,8 @@ $ yarn lint
 ```
 
 ## Recommended development environment
-Install the following extension of VS Code.  
+
+Install the following extension of VS Code.
 
 - [glslx-vscode](https://marketplace.visualstudio.com/items?itemName=evanw.glslx-vscode)
 - [Shader languages support for VS Code](https://marketplace.visualstudio.com/items?itemName=slevesque.shader)
